@@ -30,7 +30,7 @@ KNIGHTS = {
             {
                 "part": "boots",
                 "protection": 10,
-            }
+            },
         ],
         "weapon": {
             "name": "Two-handed Sword",
@@ -50,7 +50,7 @@ KNIGHTS = {
             {
                 "part": "boots",
                 "protection": 10,
-            }
+            },
         ],
         "weapon": {
             "name": "Poisoned Sword",
@@ -62,8 +62,8 @@ KNIGHTS = {
                 "power": 15,
                 "hp": -5,
                 "protection": 10,
-            }
-        }
+            },
+        },
     },
     "red_knight": {
         "name": "Red Knight",
@@ -73,36 +73,33 @@ KNIGHTS = {
             {
                 "part": "breastplate",
                 "protection": 25,
-            }
+            },
         ],
         "weapon": {
             "name": "Sword",
-            "power": 45
+            "power": 45,
         },
         "potion": {
             "name": "Blessing",
             "effect": {
                 "hp": 10,
                 "power": 5,
-            }
-        }
-    }
+            },
+        },
+    },
 }
 
 
 def battle(knights_config: dict) -> dict[str, int]:
-    lancelot = Knight.from_dict(knights_config["lancelot"])
-    arthur = Knight.from_dict(knights_config["arthur"])
-    mordred = Knight.from_dict(knights_config["mordred"])
-    red_knight = Knight.from_dict(knights_config["red_knight"])
+    knights = {
+        knight_key: Knight.from_dict(knight_data)
+        for knight_key, knight_data in knights_config.items()
+    }
 
-    first_battle_result = fight(lancelot, mordred)
-    second_battle_result = fight(arthur, red_knight)
+    first_battle_result = fight(knights["lancelot"], knights["mordred"])
+    second_battle_result = fight(knights["arthur"], knights["red_knight"])
 
     return {
         **first_battle_result,
         **second_battle_result,
     }
-
-
-print(battle(KNIGHTS))
